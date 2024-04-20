@@ -1,0 +1,17 @@
+POST http://localhost:8080/mutation
+Content-Type: application/json
+
+{
+    "operations": [
+      {
+        "type": "procedure",
+        "name": "some_mutation_function",
+        "arguments": {
+          "arg1": "hello",
+          "arg2": 1
+        },
+        "fields": null
+      }
+    ],
+  "collection_relationships": {}
+}

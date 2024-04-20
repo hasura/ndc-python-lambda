@@ -1,0 +1,72 @@
+POST http://localhost:8080/query
+Content-Type: application/json
+
+{
+    "collection": "Artist",
+    "query": {
+        "fields": {
+            "ArtistId": {
+                "type": "column",
+                "column": "ArtistId"
+            },
+            "Name": {
+                "type": "column",
+                "column": "Name"
+            },
+            "Albums": {
+                "type": "relationship",
+                "query": {
+                    "fields": {
+                        "AlbumId": {
+                            "type": "column",
+                            "column": "AlbumId"
+                        },
+                        "Title": {
+                            "type": "column",
+                            "column": "Title"
+                        },
+                        "Tracks": {
+                            "type": "relationship",
+                            "query": {
+                                "fields": {
+                                    "TrackId": {
+                                        "type": "column",
+                                        "column": "TrackId"
+                                    },
+                                    "Name": {
+                                        "type": "column",
+                                        "column": "Name"
+                                    }
+                                }
+                            },
+                            "relationship": "[{\"namespace\":\"unknown_namespace\",\"name\":\"Album\"},\"Tracks\"]",
+                            "arguments": {}
+                        }
+                    }
+                },
+                "relationship": "[{\"namespace\":\"unknown_namespace\",\"name\":\"Artist\"},\"Albums\"]",
+                "arguments": {}
+            }
+        },
+      "limit": 10
+    },
+    "arguments": {},
+    "collection_relationships": {
+        "[{\"namespace\":\"unknown_namespace\",\"name\":\"Album\"},\"Tracks\"]": {
+            "column_mapping": {
+                "AlbumId": "AlbumId"
+            },
+            "relationship_type": "array",
+            "target_collection": "Track",
+            "arguments": {}
+        },
+        "[{\"namespace\":\"unknown_namespace\",\"name\":\"Artist\"},\"Albums\"]": {
+            "column_mapping": {
+                "ArtistId": "ArtistId"
+            },
+            "relationship_type": "array",
+            "target_collection": "Album",
+            "arguments": {}
+        }
+    }
+}
