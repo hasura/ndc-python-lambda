@@ -83,7 +83,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-            context: connector-definition/dist/.hasura-connector
+            context: connector-definition/dist
             push: ${{ startsWith(github.ref, 'refs/tags/v') }}
             tags: ${{ steps.docker-metadata.outputs.tags }}
             labels: ${{ steps.docker-metadata.outputs.labels }}
