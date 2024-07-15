@@ -30,9 +30,9 @@ dist/.hasura-connector/connector-metadata.yaml: connector-metadata.yaml dist
 # Copy Dockerfile to dist/.hasura-connector and replace the version
 dist/.hasura-connector/Dockerfile: Dockerfile dist
 	cp -f Dockerfile dist/.hasura-connector/
-	sed -i '' 's/{{VERSION}}/$(subst v,,$(RELEASE_VERSION))/g' dist/.hasura-connector/Dockerfile
-	# sed -i 's/{{VERSION}}/$(subst v,,$(RELEASE_VERSION))/g' dist/.hasura-connector/Dockerfile
-
+	sed -i 's/{{VERSION}}/$(subst v,,$(RELEASE_VERSION))/g' dist/.hasura-connector/Dockerfile
+	# sed -i '' 's/{{VERSION}}/$(subst v,,$(RELEASE_VERSION))/g' dist/.hasura-connector/Dockerfile
+	
 # Copy .dockerignore to dist/.hasura-connector
 dist/.hasura-connector/.dockerignore: .dockerignore dist
 	cp -f .dockerignore dist/.hasura-connector/
