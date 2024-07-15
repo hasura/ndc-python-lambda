@@ -75,18 +75,15 @@ jobs:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Download connector definition
-        uses: actions/download-artifact@v4
-        with:
-          name: connector-definition
-          path: ./connector-definition/dist
-      - name: Build and push Docker image
+      - name: Build Docker image
         run: |
-          cd connector-definition/dist/.hasura-connector
-          docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${GITHUB_REF#refs/tags/} -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest .
-          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${GITHUB_REF#refs/tags/}
-          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest
-
+            cd connector-definition/dist/.hasura-connector
+            docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${GITHUB_REF#refs/tags/} -t ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest .
+      - name: Push Docker image
+        run: |
+            docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${GITHUB_REF#refs/tags/}
+            docker push ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:latest
+  
   release-connector:
     name: Release connector
     runs-on: ubuntu-latest
