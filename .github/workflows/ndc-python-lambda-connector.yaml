@@ -80,6 +80,14 @@ jobs:
         uses: docker/metadata-action@v5
         with:
             images: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
+      - name: Debugging
+        run: |
+              echo "Contents of root directory:"
+              ls -la
+              echo "Contents of connector-definition/dist:"
+              ls -la connector-definition/dist
+              echo "Contents of connector-definition/dist/.hasura-connector:"
+              ls -la connector-definition/dist/.hasura-connector
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
