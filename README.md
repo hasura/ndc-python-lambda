@@ -34,3 +34,6 @@ There will be support for built-in scalar types (int, float, str, bool) and also
 ## TODO: Allow adding of async queries/mutations?
 
 ## TODO: Add Pydantic type introspections
+
+
+python3 main.py serve --configuration . --port 8087
