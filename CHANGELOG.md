@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.24] - 2024-07-16
+Attempting to fix Makefile
+
 ## [0.0.23] - 2024-07-15
 Attempting to fix Makefile
 
