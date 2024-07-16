@@ -57,4 +57,4 @@ $(dist_script_files): $(script_files)
 
 # Create the final connector-definition.tgz file
 dist/connector-definition.tgz: dist/.hasura-connector/connector-metadata.yaml dist/.hasura-connector/Dockerfile dist/.hasura-connector/.dockerignore $(dist_template_files) $(dist_script_files)
-	cd dist && tar -czvf connector-definition.tgz *
+	cd dist && tar --dereference -czvf connector-definition.tgz . .hasura-connector
