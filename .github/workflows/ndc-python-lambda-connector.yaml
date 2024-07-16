@@ -69,11 +69,6 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v4
-      - name: Download definition
-        uses: actions/download-artifact@v4
-        with:
-          name: connector-definition
-          path: ./connector-definition/dist
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -85,19 +80,11 @@ jobs:
         uses: docker/metadata-action@v5
         with:
             images: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
-      - name: Debugging
-        run: |
-              echo "Contents of root directory:"
-              ls -la
-              ls -la ./connector-definition
-              cat ./connector-definition/Dockerfile
-            #   echo "Contents of connector-definition/dist/.hasura-connector:"
-            #   ls -la connector-definition/dist/.hasura-connector
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-            context: ./connector-definition/dist/.hasura-connector
-            push: ${{ startsWith(github.ref, 'refs/tags/v') }}
+            context: .
+            push: true
             tags: ${{ steps.docker-metadata.outputs.tags }}
             labels: ${{ steps.docker-metadata.outputs.labels }}
   
