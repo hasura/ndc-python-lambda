@@ -1,39 +1,33 @@
-### Proof of concept NDC lambda connector for Python.
+### Hasura Python Lambda Connector
 
-This is a work in progress.
+This connector allows you to write Python code and call it using Hasura!
 
-To see a more in-depth example that implements the Python SDK please see: https://github.com/hasura/ndc-turso-python
+With Hasura, you can integrate -- and even host -- this business logic directly with Hasura DDN and your API.
 
-Currently, the proposed functionality will look something like this:
+You can handle custom business logic using the Python Lambda data connector. Using this connector, you can transform or enrich data before it reaches your customers, or perform any other business logic you may need.
 
-```python
-from hasura_ndc_lambda import FunctionConnector, start
+You can then integrate these functions as individual commands in your metadata and reulsting API.
+This process enables you to simplify client applications and speed up your backend development!
 
-connector = FunctionConnector()
+## Setting up the Python Lambda connector
 
+### Prerequisites:
+In order to follow along with this guide, you will need:
+* [The DDN CLI, VS Code extension, and Docker installed](https://hasura.io/docs/3.0/getting-started/build/prerequisites/)
+* Python version `>= 3.11`
 
-@connector.register_query
-def do_the_thing(x: int) -> str:
-    print(x)
-    return "Hello World"
+In this guide we will setup a new Hasura DDN project from scratch.
 
+### Step-by-step guide
 
-@connector.register_mutation
-def some_mutation_function(arg1: str, arg2: int) -> str:
-    # Mutation function implementation
-    return f"Hey {arg1} {arg2}"
+Create a new directory that will contain your Hasura project and change directories into it.
 
+```mkdir ddn && cd ddn```
 
-if __name__ == "__main__":
-    start(connector)
-```
+Create a new supergraph:
 
-There will be support for built-in scalar types (int, float, str, bool) and also planned support for Pydantic types.
+```ddn supergraph init --dir .```
 
+Start a watch session, additionally split of a new terminal to continue running commands from.
 
-## TODO: Allow adding of async queries/mutations?
-
-## TODO: Add Pydantic type introspections
-
-
-python3 main.py serve --configuration . --port 8087
+```HASURA_DDN_PAT=$(ddn auth print-pat) docker compose up --build --watch```

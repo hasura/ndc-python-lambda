@@ -4,6 +4,10 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.28] - 2024-07-18
+* Update SDK
+* Provide template functions.py file
+
 ## [0.0.27] - 2024-07-18
 Update SDK and fix Dockerfile
 
