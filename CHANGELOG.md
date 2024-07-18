@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.26] - 2024-07-18
+Update Dockerfile and entrypoint script
+
 ## [0.0.25] - 2024-07-18
 Update SDK to v0.16
 

@@ -1,6 +1,4 @@
-FROM python:3.9-alpine
-
-RUN apk add --no-cache jq curl
+FROM python:3.11-alpine
 
 COPY /docker /scripts
 

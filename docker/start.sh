@@ -11,4 +11,4 @@ if [ -f "venv/bin/activate" ]; then
 fi
 
 # Run the Python script with the serve command
-python3 functions/functions.py serve --configuration ./
+python3 functions.py serve --configuration ./
