@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.33] - 2024-07-29
+* Switch base image to Python 3.10 to get more libraries
+
 ## [0.0.32] - 2024-07-29
 * Fix scripts and base image to use bash instead of sh
 
