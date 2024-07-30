@@ -1,5 +1,5 @@
-#!/usr/bin/env sh
-set -eu -o pipefail
+#!/usr/bin/env bash
+set -eu
 
 /scripts/package-restore.sh
 
@@ -11,4 +11,4 @@ if [ -f "venv/bin/activate" ]; then
 fi
 
 # Run the Python script with the serve command
-python3 functions.py serve --configuration ./
+exec python3 functions.py serve --configuration ./

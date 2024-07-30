@@ -1,5 +1,5 @@
-#!/usr/bin/env sh
-set -eu -o pipefail
+#!/usr/bin/env bash
+set -eu
 
 cd /functions
 

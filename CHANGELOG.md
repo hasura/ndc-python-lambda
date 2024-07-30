@@ -4,8 +4,11 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
-## [0.0.31] - 2024-07-22
-* Update workflow to create multi-platform build
+## [0.0.32] - 2024-07-29
+* Fix scripts and base image to use bash instead of sh
+
+## [0.0.31] - 2024-07-29
+* Fix base image to Python 3.11
 
 ## [0.0.30] - 2024-07-22
 * Update workflow to create multi-platform build
