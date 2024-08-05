@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.35] - 2024-08-05
+* Update SDK to listen on IPV4 & IPV6
+
 ## [0.0.34] - 2024-08-05
 * Update SDK
 
