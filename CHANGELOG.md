@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.34] - 2024-08-05
+* Update SDK
+
 ## [0.0.33] - 2024-07-29
 * Switch base image to Python 3.10 to get more libraries
 
