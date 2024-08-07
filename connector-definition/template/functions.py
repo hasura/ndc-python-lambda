@@ -12,6 +12,7 @@ from hasura_ndc.instrumentation import with_active_span # If you aren't planning
 from opentelemetry.trace import get_tracer # If you aren't planning on adding additional tracing spans, you don't need this either!
 from hasura_ndc.function_connector import FunctionConnector
 from pydantic import BaseModel # You only need this import if you plan to have complex inputs/outputs, which function similar to how frameworks like FastAPI do
+import asyncio # You might not need this import if you aren't doing asynchronous work
 
 connector = FunctionConnector()
 
@@ -92,6 +93,11 @@ async def with_tracing(name: str) -> str:
         {"tracing-attr": "Additional attributes can be added to Otel spans by making use of with_active_span like this"}
     )
 
+# This is an example of how to setup queries to be run in parallel
+@connector.register_query(parallel_degree=5) # When joining to this function, it will be executed in parallel in batches of 5
+async def parallel_query(name: str) -> str:
+    await asyncio.sleep(1)
+    return f"Hello {name}"
 
 if __name__ == "__main__":
     start(connector)
