@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.37] - 2024-08-07
+* Fix schema endpoint to be aware of parallel execution
+
 ## [0.0.36] - 2024-08-07
 * Add support for query variables
 * Add support for parallel query execution
