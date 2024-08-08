@@ -13,6 +13,7 @@ from opentelemetry.trace import get_tracer # If you aren't planning on adding ad
 from hasura_ndc.function_connector import FunctionConnector
 from pydantic import BaseModel # You only need this import if you plan to have complex inputs/outputs, which function similar to how frameworks like FastAPI do
 import asyncio # You might not need this import if you aren't doing asynchronous work
+from hasura_ndc.errors import UnprocessableContent
 
 connector = FunctionConnector()
 
@@ -98,6 +99,12 @@ async def with_tracing(name: str) -> str:
 async def parallel_query(name: str) -> str:
     await asyncio.sleep(1)
     return f"Hello {name}"
+
+# This is an example of how you can throw an error
+# There are different error types including: BadRequest, Forbidden, Conflict, UnprocessableContent, InternalServerError, NotSupported, and BadGateway
+@connector.register_query
+def error():
+    raise UnprocessableContent(message="This is a error", details={"Error": "This is a error!"})
 
 if __name__ == "__main__":
     start(connector)

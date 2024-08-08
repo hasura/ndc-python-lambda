@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.38] - 2024-08-08
+* Add errors and error handling to SDK
+
 ## [0.0.37] - 2024-08-07
 * Fix schema endpoint to be aware of parallel execution
 
