@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.39] - 2024-08-08
+* Update SDK
+
 ## [0.0.38] - 2024-08-08
 * Add errors and error handling to SDK
 
