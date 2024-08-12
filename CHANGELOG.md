@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.41] - 2024-08-09
+* Fix header authorization check to include "Bearer " prefix
+
 ## [0.0.40] - 2024-08-09
 * Fix field aliasing
 
