@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.44] - 2024-08-09
+* Remove relationship capabilities as engine will handle them with variables.
+
 ## [0.0.43] - 2024-08-09
 * Support Python 3.10 & 3.11 types when introspecting
 
