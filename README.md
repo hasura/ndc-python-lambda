@@ -6,7 +6,7 @@ With Hasura, you can integrate -- and even host -- this business logic directly 
 
 You can handle custom business logic using the Python Lambda data connector. Using this connector, you can transform or enrich data before it reaches your customers, or perform any other business logic you may need.
 
-You can then integrate these functions as individual commands in your metadata and reulsting API.
+You can then integrate these functions as individual commands in your metadata and API.
 This process enables you to simplify client applications and speed up your backend development!
 
 ## Setting up the Python Lambda connector

@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.43] - 2024-08-09
+* Support Python 3.10 & 3.11 types when introspecting
+
 ## [0.0.42] - 2024-08-09
 * Fix authorization
 
