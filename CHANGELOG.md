@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.0.45] - 2024-08-19
+* Update SDK to fix input type casts
+
 ## [0.0.44] - 2024-08-09
 * Remove relationship capabilities as engine will handle them with variables.
 
