@@ -1,4 +1,10 @@
-### Hasura Python Lambda Connector
+# Hasura Python Lambda Connector
+<a href="https://www.python.org/"><img src="https://github.com/hasura/ndc-python-lambda/blob/main/docs/logo.svg" align="right" width="200"></a>
+
+[![Docs](https://img.shields.io/badge/docs-v3.x-brightgreen.svg?style=flat)](https://hasura.io/connectors/python)
+[![ndc-hub](https://img.shields.io/badge/ndc--hub-python-blue.svg?style=flat)](https://hasura.io/connectors/python)
+[![License](https://img.shields.io/badge/license-Apache--2.0-purple.svg?style=flat)](https://github.com/hasura/ndc-python-lambda/blob/main/LICENSE.txt)
+[![Status](https://img.shields.io/badge/status-alpha-yellow.svg?style=flat)](https://github.com/hasura/ndc-python-lambda/blob/main/README.md)
 
 This connector allows you to write Python code and call it using Hasura!
 
@@ -6,119 +12,91 @@ With Hasura, you can integrate -- and even host -- this business logic directly 
 
 You can handle custom business logic using the Python Lambda data connector. Using this connector, you can transform or enrich data before it reaches your customers, or perform any other business logic you may need.
 
-You can then integrate these functions as individual commands in your metadata and API.
-This process enables you to simplify client applications and speed up your backend development!
+You can then integrate these functions as individual commands in your metadata and API. This process enables you to simplify client applications and speed up your backend development!
 
-## Setting up the Python Lambda connector
+This connector is built using the [Python Data Connector SDK](https://github.com/hasura/ndc-sdk-python) and implements the [Data Connector Spec](https://github.com/hasura/ndc-spec).
 
-### Prerequisites:
-In order to follow along with this guide, you will need:
-* [The DDN CLI, VS Code extension, and Docker installed](https://hasura.io/docs/3.0/getting-started/build/prerequisites/)
-* Python version `>= 3.11`
+## Before you get Started
 
-In this guide we will setup a new Hasura DDN project from scratch.
+1. The [DDN CLI](https://hasura.io/docs/3.0/cli/installation) and [Docker](https://docs.docker.com/engine/install/) installed
+2. A [supergraph](https://hasura.io/docs/3.0/getting-started/init-supergraph)
+3. A [subgraph](https://hasura.io/docs/3.0/getting-started/init-subgraph)
 
-### Step-by-step guide
+The steps below explain how to Initialize and configure a connector for local development. You can learn how to deploy a connector — after it's been configured — [here](https://hasura.io/docs/3.0/getting-started/deployment/deploy-a-connector).
 
-Create a new directory that will contain your Hasura project and change directories into it.
+## Using the Python connector
 
-```mkdir ddn && cd ddn```
+### Step 1: Authenticate your CLI session
 
-Create a new supergraph:
-
-```ddn supergraph init --dir .```
-
-Start a watch session, additionally split of a new terminal to continue running commands from.
-
-```HASURA_DDN_PAT=$(ddn auth print-pat) docker compose up --build --watch```
-
-In the new terminal, perform a local build:
-
-```ddn supergraph build local --output-dir engine```
-
-Initialize a subgraph:
-
-```
-ddn subgraph init python \
-  --dir python \
-  --target-supergraph supergraph.local.yaml \
-  --target-supergraph supergraph.cloud.yaml
+```bash
+ddn auth login
 ```
 
-Initialize a Python connector:
+### Step 2: Configure the connector
 
-```
-ddn connector init python \
-  --subgraph python/subgraph.yaml \
-  --hub-connector hasura/python \
-  --configure-port 8085 \
-  --add-to-compose-file compose.yaml
+Once you have an initialized supergraph and subgraph, run the initialization command in interactive mode while providing a name for the connector in the prompt:
+
+```bash
+ddn connector init python -i
 ```
 
-In the `.env.local` you will need to remove the `HASURA_CONNECTOR_PORT` variable which is set to `8085`. This is because the connector will run on that port but the docker-mapping is set to map 8085 -> 8080.
+#### Step 2.1: Choose the `hasura/python` option from the list
 
-Before:
-```
-OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://local.hasura.dev:4317
-OTEL_SERVICE_NAME=python_python
-HASURA_CONNECTOR_PORT=8085
-```
+#### Step 2.2: Choose a port for the connector
 
-After:
-```
-OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://local.hasura.dev:4317
-OTEL_SERVICE_NAME=python_python
-```
+The CLI will ask for a specific port to run the connector on. Choose a port that is not already in use or use the default suggested port.
 
-Add the connector link:
+### Step 3: Introspect the connector
 
-```
-ddn connector-link add python \
-  --subgraph python/subgraph.yaml \
-  --configure-host http://local.hasura.dev:8085 \
-  --target-env-file python/.env.python.local
+Introspecting the connector will generate a `config.json` file and a `python.hml` file.
+
+```bash
+ddn connector introspect python
 ```
 
-Stop the watch session using Ctrl-C and restart it.
+### Step 4: Add your resources
 
-```
-HASURA_DDN_PAT=$(ddn auth print-pat) docker compose up --build --watch
-```
+You can add the models, commands, and relationships to your API by tracking them which generates the HML files. 
 
-Once the connector is running, you can update the connector-link.
-
-```
-ddn connector-link update python \
-  --subgraph python/subgraph.yaml \
-  --env-file python/.env.python.local \
-  --add-all-resources
+```bash
+ddn connector-link add-resources python
 ```
 
-Push the build to the locally running engine:
+### Step 5: Run your connector
 
-```
-ddn supergraph build local \
-  --output-dir engine \
-  --subgraph-env-file python:python/.env.python.local
-```
+You can run your connector locally, or include it in the docker setup.
 
-Now you should be able to write your code in the `functions.py` file, and each time you make changes and save the connector should automatically restart inside the watch session, you'll then need to track those changes and push them to engine.
+#### Run the connector in Docker
 
-You can do that by re-running the above commands:
+To include your connector in the docker setup, include its compose file at the top of your supergraph `compose.yaml` file like this:
 
-To track the changes:
-
-```
-ddn connector-link update python \
-  --subgraph python/subgraph.yaml \
-  --env-file python/.env.python.local \
-  --add-all-resources
+```yaml
+include:
+  - path: app/connector/python/compose.yaml
 ```
 
-To push these changes to engine:
+#### Run the connector locally
 
-```
-ddn supergraph build local \
-  --output-dir engine \
-  --subgraph-env-file python:python/.env.python.local
-```
+To run your connector outside of Docker first go into the connector directory:
+
+`cd app/connector/python`
+
+Install the requirements:
+
+`pip3 install -r requirements.txt`
+
+Then run the connector locally:
+
+```ddn connector setenv --connector connector.yaml -- python3 functions.py serve```
+
+## Documentation
+
+View the full documentation for the Python Lambda connector [here](https://github.com/hasura/ndc-python-lambda/blob/main/docs/index.md).
+
+## Contributing
+
+Check out our [contributing guide](https://github.com/hasura/ndc-python-lambda/blob/main/docs/contributing.md) for more details.
+
+## License
+
+The Turso connector is available under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
