@@ -4,6 +4,11 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.1.1] - 2024-10-31
+* Update the Python SDK 
+  * Fix opentelemetry tracing
+  * Update models to the latest version
+
 ## [0.1.0] - 2024-08-22
 * Update Documentation for ndc-hub
 
