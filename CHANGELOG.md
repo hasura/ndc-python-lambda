@@ -4,6 +4,10 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.1.2] - 2024-12-03
+* Update the Python SDK 
+  * Fix Nullable Pydantic Type casting
+
 ## [0.1.1] - 2024-10-31
 * Update the Python SDK 
   * Fix opentelemetry tracing
