@@ -4,6 +4,12 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.1.3] - 2024-12-05
+* Update the Python SDK
+  * Fix nullable responses
+  * Fix type response name generation
+  * Add docstrings to function descriptions 
+
 ## [0.1.2] - 2024-12-03
 * Update the Python SDK 
   * Fix Nullable Pydantic Type casting
