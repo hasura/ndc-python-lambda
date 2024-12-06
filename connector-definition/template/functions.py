@@ -11,9 +11,10 @@ from hasura_ndc import start
 from hasura_ndc.instrumentation import with_active_span # If you aren't planning on adding additional tracing spans, you don't need this!
 from opentelemetry.trace import get_tracer # If you aren't planning on adding additional tracing spans, you don't need this either!
 from hasura_ndc.function_connector import FunctionConnector
-from pydantic import BaseModel # You only need this import if you plan to have complex inputs/outputs, which function similar to how frameworks like FastAPI do
+from pydantic import BaseModel, Field # You only need this import if you plan to have complex inputs/outputs, which function similar to how frameworks like FastAPI do
 import asyncio # You might not need this import if you aren't doing asynchronous work
 from hasura_ndc.errors import UnprocessableContent
+from typing import Annotated
 
 connector = FunctionConnector()
 
@@ -105,6 +106,16 @@ async def parallel_query(name: str) -> str:
 @connector.register_query
 def error():
     raise UnprocessableContent(message="This is a error", details={"Error": "This is a error!"})
+
+class Foo(BaseModel):
+  bar: str = Field(..., description="The bar field") # Add a field description
+  baz: Annotated[str, "The baz field"] # A different way to add a field description
+
+# You can use Field or Annotated to add descriptions to the metadata
+@connector.register_query
+def annotations(foo: Foo | None = Field(..., description="The optional input Foo")) -> Foo | None:
+    """Writing a doc-string like this will become the function/procedure description"""
+    return None
 
 if __name__ == "__main__":
     start(connector)
