@@ -156,7 +156,7 @@ jobs:
               NEW_BRANCH="update-${{ env.CONNECTOR_NAME }}-connector-v${{ steps.get-version.outputs.tagged_version }}"
               git checkout -b $NEW_BRANCH
 
-              cd registry/${{ env.REGISTRY_NAME }}/${{ env.CONNECTOR_NAME }}
+              cd registry/${{ env.REGISTRY_NAME }}/python
 
               # Create releases directory if it doesn't exist
               mkdir -p releases/v${{ steps.get-version.outputs.tagged_version }}

@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.1.6] - 2025-01-22
+* Fix workflows
+
 ## [0.1.5] - 2024-12-05
 * Update the Python SDK
   * Unpin Versions
