@@ -81,15 +81,21 @@ include:
 
 To run your connector outside of Docker first go into the connector directory:
 
-`cd app/connector/python`
+```bash
+cd app/connector/python
+```
 
 Install the requirements:
 
-`pip3 install -r requirements.txt`
+```bash
+pip3 install -r requirements.txt`
+```
 
 Then run the connector locally:
 
-`ddn connector setenv --connector connector.yaml -- python3 functions.py serve`
+```bash
+ddn connector setenv --connector connector.yaml -- python3 functions.py serve
+```
 
 ## Documentation
 
