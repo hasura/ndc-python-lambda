@@ -22,7 +22,7 @@ This connector is built using the [Python Data Connector SDK](https://github.com
 1. The [DDN CLI](https://hasura.io/docs/3.0/cli/installation) and [Docker](https://docs.docker.com/engine/install/) installed
 2. A [supergraph](https://hasura.io/docs/3.0/getting-started/init-supergraph)
 3. A [subgraph](https://hasura.io/docs/3.0/getting-started/init-subgraph)
-4. Python 3.12+
+4. Python 3.12
 
 The steps below explain how to Initialize and configure a connector for local development. You can learn how to deploy a connector — after it's been configured — [here](https://hasura.io/docs/3.0/getting-started/deployment/deploy-a-connector).
 
