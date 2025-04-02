@@ -4,6 +4,10 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.2.0] - 2025-04-02
+* Upgrade Python 3.12 
+* Use `python:3.12-slim` image tag with non-root user.
+
 ## [0.1.6] - 2025-01-22
 * Fix workflows
 
