@@ -1,5 +1,6 @@
 packagingDefinition:
   type: ManagedDockerBuild
+documentationPage: https://hasura.io/docs/3.0/business-logic/overview
 nativeToolchainDefinition:
   commands:
     start:
