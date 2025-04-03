@@ -1,4 +1,5 @@
 # Hasura Python Lambda Connector
+
 <a href="https://www.python.org/"><img src="https://github.com/hasura/ndc-python-lambda/blob/main/docs/logo.svg" align="right" width="200"></a>
 
 [![Docs](https://img.shields.io/badge/docs-v3.x-brightgreen.svg?style=flat)](https://hasura.io/connectors/python)
@@ -21,6 +22,7 @@ This connector is built using the [Python Data Connector SDK](https://github.com
 1. The [DDN CLI](https://hasura.io/docs/3.0/cli/installation) and [Docker](https://docs.docker.com/engine/install/) installed
 2. A [supergraph](https://hasura.io/docs/3.0/getting-started/init-supergraph)
 3. A [subgraph](https://hasura.io/docs/3.0/getting-started/init-subgraph)
+4. Python 3.12
 
 The steps below explain how to Initialize and configure a connector for local development. You can learn how to deploy a connector — after it's been configured — [here](https://hasura.io/docs/3.0/getting-started/deployment/deploy-a-connector).
 
@@ -56,7 +58,7 @@ ddn connector introspect python
 
 ### Step 4: Add your resources
 
-You can add the models, commands, and relationships to your API by tracking them which generates the HML files. 
+You can add the models, commands, and relationships to your API by tracking them which generates the HML files.
 
 ```bash
 ddn connector-link add-resources python
@@ -79,15 +81,21 @@ include:
 
 To run your connector outside of Docker first go into the connector directory:
 
-`cd app/connector/python`
+```bash
+cd app/connector/python
+```
 
 Install the requirements:
 
-`pip3 install -r requirements.txt`
+```bash
+pip3 install -r requirements.txt`
+```
 
 Then run the connector locally:
 
-```ddn connector setenv --connector connector.yaml -- python3 functions.py serve```
+```bash
+ddn connector setenv --connector connector.yaml -- python3 functions.py serve
+```
 
 ## Documentation
 
