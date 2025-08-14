@@ -1,1 +1,1 @@
-hasura-ndc==0.38
+ndc-sdk-python==0.40
