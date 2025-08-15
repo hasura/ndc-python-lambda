@@ -83,13 +83,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up containerd
-        uses: crazy-max/ghaction-setup-containerd@v3
-
-      - name: Fix containerd socket permissions
-        run: |
-          sudo chgrp docker /run/containerd/containerd.sock
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -117,7 +110,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.docker-metadata.outputs.tags }}
           labels: ${{ steps.docker-metadata.outputs.labels }}
-          
+
   release-connector:
     name: Release connector
     runs-on: ubuntu-latest
