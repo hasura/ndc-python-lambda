@@ -93,10 +93,9 @@ setup_temp_build_dir() {
 
   # Copy connector-definition files to the locations expected by the Dockerfile
   # The original Dockerfile expects:
-  # COPY /docker /scripts  -> so we copy connector-definition/scripts to docker/
+  # COPY /docker /scripts  -> so we /docker to docker/
   # COPY /functions /functions -> so we copy connector-definition/template to functions/
 
-  # cp -r "connector-definition/scripts" "${TEMP_BUILD_DIR}/docker"
   cp -r "docker" "${TEMP_BUILD_DIR}/docker"
   cp -r "connector-definition/template" "${TEMP_BUILD_DIR}/functions"
 
