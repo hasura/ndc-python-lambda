@@ -36,6 +36,16 @@ jobs:
             echo "pytest not found, skipping tests"
           fi
 
+  test-connector:
+    name: Test connector
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Test example functions.py works
+        run: ./scripts/test-container.sh
+
   build-connector:
     name: Build connector
     runs-on: ubuntu-latest
