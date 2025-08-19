@@ -4,6 +4,9 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.2.4] - 2025.08.19
+* Use `ndc-sdk-python` package version `v0.42`
+
 ## [0.2.3] - 2025.08.19
 * Use `ndc-sdk-python` package version `v0.41`
 
