@@ -1,1 +1,1 @@
-ndc-sdk-python==0.41
+ndc-sdk-python==0.42
