@@ -4,6 +4,10 @@ This changelog documents the changes between release versions.
 ## [Unreleased]
 Changes to be included in the next upcoming release
 
+## [0.2.5] - 2025.12.02
+* Use upgraded versions of `libperl`, `perl`, `perl-modules`, `perl-base` and `libsqlite3` to avoid
+ security vulnerabilities.
+
 ## [0.2.4] - 2025.08.19
 * Use `ndc-sdk-python` package version `v0.42`
 
