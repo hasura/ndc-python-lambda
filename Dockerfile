@@ -5,6 +5,18 @@ RUN apt-get update && \
     apt-get install -y curl git && \
     rm -rf /var/lib/apt/lists/*
 
+# Security updates for CVE-2024-56406 (Perl), CVE-2025-7709 (SQLite)
+# Upgrade vulnerable system packages to their fixed versions
+RUN apt-get update && \
+    apt-get upgrade -y \
+      libperl5.40 \
+      perl \
+      perl-modules-5.40 \
+      perl-base \
+      libsqlite3-0 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY /docker /scripts
 COPY /functions /functions
 
