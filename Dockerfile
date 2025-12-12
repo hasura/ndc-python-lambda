@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-RUN python -m pip install --no-cache-dir --upgrade pip==25.3
+RUN python -m pip install --no-cache-dir --upgrade "pip>=25.3"
 
 # Install curl for healthcheck
 RUN apt-get update && \
