@@ -1,5 +1,7 @@
 FROM python:3.12-slim
 
+RUN python -m pip install --no-cache-dir --upgrade pip==25.3
+
 # Install curl for healthcheck
 RUN apt-get update && \
     apt-get install -y curl git && \
