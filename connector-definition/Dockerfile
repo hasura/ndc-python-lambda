@@ -4,16 +4,18 @@ COPY requirements.txt /functions/
 
 WORKDIR /functions
 
-RUN python3 -m venv venv && \
-    . venv/bin/activate && \
-    pip install -r requirements.txt
-
-COPY ./ /functions
-
 # create the group and user
 RUN adduser -u 1000 python
 
 RUN chown -R python:python /functions
 
-# stating USER before WORKDIR means the directory is created with the non-root proper ownership
+# Switch to python user before activating venv - the alternative is to run chown on installed
+# dependencies afterward, which takes a long time.
 USER python
+
+RUN python3 -m venv venv && \
+  . venv/bin/activate && \
+  pip install --upgrade pip>=25.3 && \
+  pip install -r requirements.txt
+
+COPY --chown=python:python ./ /functions
