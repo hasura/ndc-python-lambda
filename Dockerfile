@@ -1,23 +1,17 @@
-FROM python:3.12-slim
+FROM ubuntu:noble-20260113
 
-RUN python -m pip install --no-cache-dir --upgrade "pip>=25.3"
-
-# Install curl for healthcheck
+# Install Python 3.12 (Ubuntu Noble default), venv, curl, and git
 RUN apt-get update && \
-    apt-get install -y curl git && \
-    rm -rf /var/lib/apt/lists/*
-
-# Security updates for CVE-2024-56406 (Perl), CVE-2025-7709 (SQLite)
-# Upgrade vulnerable system packages to their fixed versions
-RUN apt-get update && \
-    apt-get upgrade -y \
-      libperl5.40 \
-      perl \
-      perl-modules-5.40 \
-      perl-base \
-      libsqlite3-0 && \
+    apt-get install -y --no-install-recommends \
+      python3 \
+      python3-venv \
+      curl \
+      git && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Create python symlink for compatibility
+RUN ln -sf /usr/bin/python3 /usr/bin/python
 
 COPY /docker /scripts
 COPY /functions /functions
@@ -27,6 +21,12 @@ RUN chmod +x /scripts/package-restore.sh /scripts/start.sh
 
 # Run the package-restore script
 RUN /scripts/package-restore.sh
+
+# Create non-root user
+RUN useradd -m python && \
+    chown -R python:python /scripts /functions
+
+USER python
 
 EXPOSE 8080
 

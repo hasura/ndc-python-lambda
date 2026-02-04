@@ -85,6 +85,55 @@ jobs:
           path: ./connector-definition/dist
           compression-level: 0 # Already compressed
 
+  security-scan:
+    name: Build and scan Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Run Trivy vulnerability scanner (json output)
+        uses: aquasecurity/trivy-action@0.32.0
+        with:
+          image-ref: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+          format: json
+          output: trivy-results.json
+          scanners: vuln
+
+      - name: Upload Trivy scan results to Security Agent
+        uses: hasura/security-agent-tools/upload-file@v1
+        with:
+          file_path: trivy-results.json
+          security_agent_api_key: ${{ secrets.SECURITY_AGENT_API_KEY }}
+          tags: |
+            service=ndc-python-lambda
+            source_code_path=.
+            docker_file_path=Dockerfile
+            scanner=trivy
+            image_name=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+            product_domain=hasura-ddn-data-plane,promptql-data-plane
+            team=engine
+
+      - name: Fail build on High/Critical Vulnerabilities
+        uses: aquasecurity/trivy-action@0.32.0
+        with:
+          skip-setup-trivy: true
+          image-ref: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+          format: table
+          severity: CRITICAL,HIGH
+          scanners: vuln
+          ignore-unfixed: true
+          exit-code: 1
+
   build-and-push-docker:
     name: Build and push Docker image
     needs: build-connector
@@ -120,6 +169,45 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.docker-metadata.outputs.tags }}
           labels: ${{ steps.docker-metadata.outputs.labels }}
+
+      - name: Get image tag for scanning
+        id: get-image-tag
+        run: |
+          IMAGE_TAG="${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${GITHUB_REF#refs/tags/}"
+          echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Run Trivy vulnerability scanner (json output)
+        uses: aquasecurity/trivy-action@0.32.0
+        with:
+          image-ref: ${{ steps.get-image-tag.outputs.image_tag }}
+          format: json
+          output: trivy-results.json
+          scanners: vuln
+
+      - name: Upload Trivy scan results to Security Agent
+        uses: hasura/security-agent-tools/upload-file@v1
+        with:
+          file_path: trivy-results.json
+          security_agent_api_key: ${{ secrets.SECURITY_AGENT_API_KEY }}
+          tags: |
+            service=ndc-python-lambda
+            source_code_path=.
+            docker_file_path=Dockerfile
+            scanner=trivy
+            image_name=${{ steps.get-image-tag.outputs.image_tag }}
+            product_domain=hasura-ddn-data-plane,promptql-data-plane
+            team=engine
+
+      - name: Fail build on High/Critical Vulnerabilities
+        uses: aquasecurity/trivy-action@0.32.0
+        with:
+          skip-setup-trivy: true
+          image-ref: ${{ steps.get-image-tag.outputs.image_tag }}
+          format: table
+          severity: CRITICAL,HIGH
+          scanners: vuln
+          ignore-unfixed: true
+          exit-code: 1
 
   release-connector:
     name: Release connector
