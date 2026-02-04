@@ -6,6 +6,11 @@ This changelog documents the changes between release versions.
 
 Changes to be included in the next upcoming release
 
+## [0.2.7] - 2026.02.04
+
+* Switch to `ubuntu:noble-20260113` base image with Python 3.12
+* Run container as non-root user for improved security
+
 ## [0.2.6] - 2025.12.12
 
 * Use pip 25.3 or greater
