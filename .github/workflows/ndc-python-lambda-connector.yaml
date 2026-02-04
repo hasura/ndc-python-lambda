@@ -142,12 +142,12 @@ jobs:
           security_agent_api_key: ${{ secrets.SECURITY_AGENT_API_KEY }}
           tags: |
             service=ndc-python-lambda
-            source_code_path=ndc-python-lambda
+            source_code_path=.
             docker_file_path=Dockerfile
             scanner=trivy
             image_name=${{ steps.get-image-tag.outputs.image_tag }}
-            product_domain=hasura-ddn
-            team=platform
+            product_domain=hasura-ddn-data-plane,promptql-data-plane
+            team=engine
 
       - name: Fail build on High/Critical Vulnerabilities
         uses: aquasecurity/trivy-action@0.32.0
