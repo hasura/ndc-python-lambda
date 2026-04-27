@@ -102,7 +102,7 @@ jobs:
           tags: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
       - name: Run Trivy vulnerability scanner (json output)
-        uses: aquasecurity/trivy-action@854c61d34a550a9fcbab3bc59e55b868c15d1962
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
         with:
           image-ref: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
           format: json
@@ -124,7 +124,7 @@ jobs:
             team=engine
 
       - name: Fail build on High/Critical Vulnerabilities
-        uses: aquasecurity/trivy-action@854c61d34a550a9fcbab3bc59e55b868c15d1962
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
         with:
           skip-setup-trivy: true
           image-ref: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
@@ -177,7 +177,7 @@ jobs:
           echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Run Trivy vulnerability scanner (json output)
-        uses: aquasecurity/trivy-action@854c61d34a550a9fcbab3bc59e55b868c15d1962
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
         with:
           image-ref: ${{ steps.get-image-tag.outputs.image_tag }}
           format: json
@@ -199,7 +199,7 @@ jobs:
             team=engine
 
       - name: Fail build on High/Critical Vulnerabilities
-        uses: aquasecurity/trivy-action@854c61d34a550a9fcbab3bc59e55b868c15d1962
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1
         with:
           skip-setup-trivy: true
           image-ref: ${{ steps.get-image-tag.outputs.image_tag }}
