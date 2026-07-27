@@ -6,6 +6,10 @@ This changelog documents the changes between release versions.
 
 Changes to be included in the next upcoming release
 
+## [0.2.8] - 2026.07.27
+
+* Migrate OS base image to private Artifact Registry with `-stable` alias
+
 ## [0.2.7] - 2026.02.04
 
 * Switch to `ubuntu:noble-20260113` base image with Python 3.12
