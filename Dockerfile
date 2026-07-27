@@ -1,4 +1,4 @@
-FROM ubuntu:noble-20260113
+FROM us-docker.pkg.dev/hasura-container-images/external-images/docker.io/library/ubuntu:noble-stable
 
 # Install Python 3.12 (Ubuntu Noble default), venv, curl, and git
 RUN apt-get update && \
