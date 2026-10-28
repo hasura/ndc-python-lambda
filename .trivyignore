@@ -1,0 +1,25 @@
+# Findings in libraries vendored inside pip (functions/venv/.../pip/_vendor).
+#
+# docker/package-restore.sh upgrades pip in the connector venv, and pip ships its
+# own private copies of msgpack, urllib3 and setuptools (pkg_resources) under
+# pip/_vendor. The connector never imports these; pip uses them only to install
+# packages. They cannot be upgraded independently of pip, and as of pip 26.2.2
+# (latest) no pip release carries the fixed versions.
+#
+# pip itself must stay in the image: start.sh runs package-restore.sh, and
+# images built on top of this one run `pip install -r requirements.txt`.
+#
+# Remove these entries once a pip release vendors fixed versions
+# (msgpack >= 1.2.3, urllib3 >= 2.8.0, setuptools >= 78.1.1). Each entry
+# expires so the scan starts failing again if that is forgotten.
+
+# msgpack 1.1.2 (fixed in 1.2.3 / 1.2.1)
+CVE-2026-114613 exp:2027-01-31
+GHSA-6v7p-g79w-8964 exp:2027-01-31
+
+# setuptools 70.3.0, vendored by pip for pkg_resources (fixed in 78.1.1)
+CVE-2025-47273 exp:2027-01-31
+
+# urllib3 2.7.0 (fixed in 2.8.0)
+CVE-2026-97687 exp:2027-01-31
+CVE-2026-97689 exp:2027-01-31
