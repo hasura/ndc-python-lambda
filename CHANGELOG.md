@@ -6,6 +6,11 @@ This changelog documents the changes between release versions.
 
 Changes to be included in the next upcoming release
 
+## [0.2.9] - 2026.10.28
+
+* Install the patched Ubuntu Noble `libbrotli1` security update (>= `1.1.0-2ubuntu0.1`) in the
+  base image and fail the build if the patched package is missing
+
 ## [0.2.8] - 2026.07.27
 
 * Migrate OS base image to private Artifact Registry with `-stable` alias
