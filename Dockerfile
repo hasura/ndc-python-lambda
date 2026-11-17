@@ -5,6 +5,7 @@ FROM us-docker.pkg.dev/hasura-container-images/external-images/docker.io/library
 # Noble security build (>= 1.1.0-2ubuntu0.1) rather than whatever version the
 # base image happens to ship.
 RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends && \
     apt-get install -y --no-install-recommends \
       python3 \
       python3-venv \
